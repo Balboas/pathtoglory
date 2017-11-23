@@ -14,20 +14,20 @@ public enum MessageProtocol {
     public static final String DELIMITER = "##";
 
 
-    MessageProtocol (String protocol){
+    MessageProtocol(String protocol) {
         this.protocol = protocol;
     }
 
-    public static String decode(String message){
+    public static String decode(String message) {
 
         String[] splittedMessage = message.split(DELIMITER);
         MessageProtocol protocol = MessageProtocol.valueOf(splittedMessage[0]);
 
-        if (protocol == null){
+        if (protocol == null) {
             return null;
         }
 
-        switch (protocol){
+        switch (protocol) {
             case LOGIN:
                 break;
             case REGISTER:
@@ -39,9 +39,7 @@ public enum MessageProtocol {
         return null;
     }
 
-    public static String encode (MessageProtocol protocol, String message){
-
-        return new StringBuilder(protocol.name()).append(DELIMITER).append(message).toString();
-
+    public static String encode(MessageProtocol protocol, String message, String username) {
+        return new StringBuilder(protocol.name()).append(DELIMITER).append(username).append(message).toString();
     }
 }
