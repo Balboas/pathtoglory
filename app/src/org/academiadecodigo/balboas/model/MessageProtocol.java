@@ -6,7 +6,6 @@ package org.academiadecodigo.balboas.model;
 public enum MessageProtocol {
 
     REGISTER("REG"),
-    LOGIN("LOGIN");
     LOGIN("LOGIN"),
     SENDDATA("SENDDATA");
 
