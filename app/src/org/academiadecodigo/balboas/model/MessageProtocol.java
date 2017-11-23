@@ -11,6 +11,7 @@ public enum MessageProtocol {
     private String protocol;
     public static final String DELIMITER = "##";
 
+
     MessageProtocol (String protocol){
         this.protocol = protocol;
     }
@@ -31,5 +32,10 @@ public enum MessageProtocol {
                 break;
         }
         return null;
+    }
+
+    public static String encode (MessageProtocol protocol, String message){
+
+        StringBuilder messageEncoded = new StringBuilder(protocol.name()).append(DELIMITER).append(message);
     }
 }
