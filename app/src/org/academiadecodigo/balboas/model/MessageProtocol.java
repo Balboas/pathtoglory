@@ -34,8 +34,8 @@ public enum MessageProtocol {
         return null;
     }
 
-    public static String encode (MessageProtocol protocol, String message){
+    public static String encode (MessageProtocol protocol, String message, String username){
 
-        StringBuilder messageEncoded = new StringBuilder(protocol.name()).append(DELIMITER).append(message);
+        return new StringBuilder(protocol.name()).append(DELIMITER).append(username).append(message).toString();
     }
 }

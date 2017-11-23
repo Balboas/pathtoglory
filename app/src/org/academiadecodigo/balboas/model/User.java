@@ -1,70 +1,50 @@
 package org.academiadecodigo.balboas.model;
 
-import org.academiadecodigo.balboas.Controller;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 /**
- * Created by Daniel Baeta on 23/11/17.
+ * Created by codecadet on 07/11/17.
  */
-public class User implements Runnable {
+public class User {
 
-    private Socket socket;
-    private PrintWriter writer;
-    private BufferedReader reader;
-    private int port = 32323;
-    private Controller controller;
+    private String userName;
+    private String passWord;
+    private String email;
 
-    public User(Controller controller) {
-
-        this.controller = controller;
+    public User(String userName, String passWord, String email) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
     }
 
-    //Must be invoked after instantiation
-    public void connect(){
-
-        try {
-            socket = new Socket("localhost", port);
-            writer = new PrintWriter(socket.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String getUserName() {
+        return userName;
     }
 
-    //Messages must be encoded before.
-    public void sendMessage(String message){
-        writer.println(message);
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
+    public String getPassWord() {
+        return passWord;
+    }
 
-    //Messages are received and decoded
-    public void getMessage(String message){
-        MessageProtocol.decode(message);
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
-    public void run() {
-
-        String message = null;
-
-        try {
-            //Keeps waiting for messages
-            while ((message = reader.readLine()) != null) {
-                getMessage(message);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public String toString() {
+        return "User {"+
+                "User =" + userName + '\'' +
+                ",Email ='"+email + '\'' +
+                ",Pass ='"+ passWord + '\'' +
+                '}';
     }
 }
