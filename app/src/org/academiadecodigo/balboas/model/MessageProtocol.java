@@ -7,6 +7,9 @@ public enum MessageProtocol {
 
     REGISTER("REG"),
     LOGIN("LOGIN");
+    LOGIN("LOGIN"),
+    SENDDATA("SENDDATA");
+
 
     private String protocol;
     public static final String DELIMITER = "##";
@@ -30,6 +33,9 @@ public enum MessageProtocol {
                 break;
             case REGISTER:
                 break;
+            case SENDDATA:
+                break;
+
         }
         return null;
     }

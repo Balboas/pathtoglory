@@ -6,8 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.academiadecodigo.balboas.model.MessageProtocol;
+import org.academiadecodigo.balboas.model.User;
 
 public class MainController implements Controller{
+
+    private User user;
 
     @FXML
     private ResourceBundle resources;
@@ -42,20 +46,16 @@ public class MainController implements Controller{
     @FXML
     void onSendButton(ActionEvent event) {
 
+        String stringBuilder = new StringBuilder(gymField.getText()).append(MessageProtocol.DELIMITER).append(dietField.getText())
+                .append(MessageProtocol.DELIMITER).append(beerField.getText()).append(MessageProtocol.DELIMITER).append(smokeField.getText()).toString();
 
-
-
+        MessageProtocol.encode(MessageProtocol.SENDDATA, stringBuilder);
     }
 
     @FXML
     void initialize() {
-        assert gymField != null : "fx:id=\"gymField\" was not injected: check your FXML file 'mainView.fxml'.";
-        assert dietField != null : "fx:id=\"dietField\" was not injected: check your FXML file 'mainView.fxml'.";
-        assert beerField != null : "fx:id=\"beerField\" was not injected: check your FXML file 'mainView.fxml'.";
-        assert smokeField != null : "fx:id=\"smokeField\" was not injected: check your FXML file 'mainView.fxml'.";
-        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'mainView.fxml'.";
-        assert sendButton != null : "fx:id=\"sendButton\" was not injected: check your FXML file 'mainView.fxml'.";
 
+        user = new User(this);
     }
 }
 
