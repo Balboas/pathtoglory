@@ -24,12 +24,16 @@ public class Server {
 
         Server server = new Server();
 
+        while (true) {
+            server.acceptConnections();
+        }
     }
+
 
     private void init() {
 
         try {
-            serverSocket = new ServerSocket();
+            serverSocket = new ServerSocket(portNumber);
             service = Executors.newCachedThreadPool();
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +41,7 @@ public class Server {
 
     }
 
-    private void acceptConnections(){
+    private void acceptConnections() {
 
         try {
             Socket socket = serverSocket.accept();
@@ -50,7 +54,7 @@ public class Server {
     }
 
 
-    private class ServerWorker implements Runnable{
+    private class ServerWorker implements Runnable {
 
         Socket socket;
 
