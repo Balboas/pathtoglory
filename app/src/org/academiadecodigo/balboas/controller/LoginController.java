@@ -6,6 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by codecadet on 23/11/17.
  */
@@ -56,10 +59,22 @@ public class LoginController implements Controller{
     @FXML
     void onClick(ActionEvent event) {
 
+        if (login) {
+            showRegister();
+        } else {
+            showLogin();
+        }
+
     }
 
     @FXML
     void onPress(ActionEvent event) {
+
+        if (login) {
+            doLogin();
+        } else {
+            doRegister();
+        }
 
     }
     private void showLogin() {
@@ -105,6 +120,7 @@ public class LoginController implements Controller{
         }
 
         showConsoleText("login accepted");
+        Navigation.getInstance().loadScreen(MainController.getName());
     }
 
     private void doRegister() {
@@ -124,6 +140,17 @@ public class LoginController implements Controller{
             return;
         }
 
+        String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(emailFieldId.getText());
+        if (!matcher.matches()) {
+
+
+            showConsoleText("not valid e-mail");
+
+            return;
+        }
+
         showLogin();
         showConsoleText("registration successful");
 
@@ -136,25 +163,6 @@ public class LoginController implements Controller{
 
     }
 
-    public void onButton(ActionEvent event) {
-
-        if (login) {
-            doLogin();
-        } else {
-            doRegister();
-        }
-
-    }
-
-    public void onLink(MouseEvent event) {
-
-        if (login) {
-            showRegister();
-        } else {
-            showLogin();
-        }
-
-    }
 
     public static String getNAME() {
         return NAME;

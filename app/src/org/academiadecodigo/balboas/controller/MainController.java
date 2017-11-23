@@ -12,6 +12,7 @@ import org.academiadecodigo.balboas.model.User;
 public class MainController implements Controller{
 
     private User user;
+    private static final String NAME = "mainView";
 
     @FXML
     private ResourceBundle resources;
@@ -56,6 +57,10 @@ public class MainController implements Controller{
     void initialize() {
 
         user = new User(this);
+    }
+
+    public static String getName() {
+        return NAME;
     }
 }
 

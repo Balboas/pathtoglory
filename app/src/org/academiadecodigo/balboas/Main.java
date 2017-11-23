@@ -12,7 +12,7 @@ public class Main extends Application {
         Navigation navigation = Navigation.getInstance();
         navigation.setStage(primaryStage);
 
-        // Load the login screen
+        // Load the login screen§
         navigation.loadScreen(LoginController.getNAME());
         primaryStage.show();
     }
