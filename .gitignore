@@ -145,6 +145,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Directories
+html/
+ios/
 
 ### Linux ###
 
