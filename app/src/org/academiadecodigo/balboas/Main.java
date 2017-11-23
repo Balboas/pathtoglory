@@ -1,4 +1,4 @@
-package sample;
+package org.academiadecodigo.balboas;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
