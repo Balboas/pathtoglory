@@ -13,10 +13,8 @@ import java.util.Map;
 
 public final class Navigation {
 
-    public final static int MIN_WIDTH = 1024;
-    public final static int MIN_HEIGHT = 768;
 
-    public final static String VIEW_PATH = "";
+    public final static String VIEW_PATH = "../view";
     private static Navigation instance;
     private LinkedList<Scene> scenes = new LinkedList<>();
     private Map<String, Controller> controllers = new HashMap<>();
@@ -49,7 +47,7 @@ public final class Navigation {
         Parent root = loadView(view);
 
         // Create a new scene and add it to the stack
-        Scene scene = new Scene(root, MIN_WIDTH, MIN_HEIGHT);
+        Scene scene = new Scene(root);
         scenes.push(scene);
 
         // Put the scene on the stage
