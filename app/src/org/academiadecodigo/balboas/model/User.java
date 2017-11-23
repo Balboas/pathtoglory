@@ -1,6 +1,7 @@
 package org.academiadecodigo.balboas.model;
 
-import org.academiadecodigo.balboas.Controller;
+
+import org.academiadecodigo.balboas.controller.Controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
