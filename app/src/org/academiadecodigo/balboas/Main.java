@@ -1,9 +1,6 @@
 package org.academiadecodigo.balboas;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.academiadecodigo.balboas.controller.LoginController;
 import org.academiadecodigo.balboas.controller.Navigation;
