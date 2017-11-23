@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import org.academiadecodigo.balboas.model.Client;
+import org.academiadecodigo.balboas.model.MessageProtocol;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +17,7 @@ import java.util.regex.Pattern;
 public class LoginController implements Controller{
 
     private static final String NAME = "Login";
+    private Client client;
 
     @FXML
     private Pane paneId;
@@ -120,6 +123,10 @@ public class LoginController implements Controller{
         }
 
         showConsoleText("login accepted");
+        String username = userFieldId.getText();
+        String password = passFieldId.getText();
+        String message = MessageProtocol.encode(MessageProtocol.LOGIN, username + MessageProtocol.DELIMITER + password, username);
+        client.sendMessage(message);
         Navigation.getInstance().loadScreen(MainController.getName());
     }
 
@@ -152,6 +159,12 @@ public class LoginController implements Controller{
         }
 
         showLogin();
+        String username = userFieldId.getText();
+        String password = passFieldId.getText();
+        String email = emailFieldId.getText();
+        String message = MessageProtocol.encode(MessageProtocol.REGISTER,
+                username + MessageProtocol.DELIMITER+password + MessageProtocol.DELIMITER + email, username);
+        client.sendMessage(message);
         showConsoleText("registration successful");
 
     }

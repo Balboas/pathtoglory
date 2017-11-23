@@ -6,11 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.academiadecodigo.balboas.model.Client;
 import org.academiadecodigo.balboas.model.MessageProtocol;
 import org.academiadecodigo.balboas.model.User;
 
 public class MainController implements Controller{
 
+    private Client client;
     private User user;
     private static final String NAME = "mainView";
 
@@ -50,13 +52,14 @@ public class MainController implements Controller{
         String stringBuilder = new StringBuilder(gymField.getText()).append(MessageProtocol.DELIMITER).append(dietField.getText())
                 .append(MessageProtocol.DELIMITER).append(beerField.getText()).append(MessageProtocol.DELIMITER).append(smokeField.getText()).toString();
 
-        MessageProtocol.encode(MessageProtocol.SENDDATA, stringBuilder);
+        String message = MessageProtocol.encode(MessageProtocol.SENDDATA, stringBuilder, user.getUserName());
+        client.sendMessage(message);
     }
 
     @FXML
     void initialize() {
 
-        user = new User(this);
+        client = new Client(this);
     }
 
     public static String getName() {

@@ -1,12 +1,4 @@
 package org.academiadecodigo.balboas.model;
-import org.academiadecodigo.balboas.controller.Controller;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 
 import org.academiadecodigo.balboas.controller.Controller;
 
@@ -19,7 +11,7 @@ import java.net.Socket;
 /**
  * Created by Daniel Baeta on 23/11/17.
  */
-public class User implements Runnable {
+public class Client implements Runnable {
 
     private Socket socket;
     private PrintWriter writer;
@@ -27,7 +19,7 @@ public class User implements Runnable {
     private int port = 32323;
     private Controller controller;
 
-    public User(Controller controller) {
+    public Client(Controller controller) {
 
         this.controller = controller;
     }
@@ -75,4 +67,6 @@ public class User implements Runnable {
             }
         }
     }
+
+
 }
