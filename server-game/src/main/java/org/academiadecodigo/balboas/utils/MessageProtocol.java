@@ -1,5 +1,6 @@
 package org.academiadecodigo.balboas.utils;
 
+import org.academiadecodigo.balboas.Game;
 import org.academiadecodigo.balboas.Server;
 import org.academiadecodigo.balboas.game.Player;
 
@@ -19,16 +20,15 @@ public enum MessageProtocol {
 
     private String protocolTag;
     public static final String DELIMITER = "##";
-    private static Map<String, Player> listOfPlayers;
-
-    static {
-        listOfPlayers = new HashMap<>();
-    }
+    private static Game game;
 
     MessageProtocol(String protocolTag) {
         this.protocolTag = protocolTag;
     }
 
+    public static void setGame(Game newGame) {
+        game = newGame;
+    }
 
     public static String encode(MessageProtocol protocol, String username, String message) {
         return new StringBuilder(protocol.name()).append(DELIMITER).append(message).toString();
@@ -38,21 +38,19 @@ public enum MessageProtocol {
 
         String[] splitMessage = message.split(DELIMITER);
         MessageProtocol protocol = MessageProtocol.valueOf(splitMessage[0]);
+        String username = splitMessage[1];
 
         switch (protocol) {
             case LOGIN:
-
-
-                addPlayer(new Player(serverWorker), serverWorker.getName());
-
+                addPlayer(new Player(serverWorker), splitMessage[1]);
                 //JDBC service
                 break;
             case MOVE:
-                sendMessageToPlayer(splitMessage[2], serverWorker);
+                sendMessageToPlayer(splitMessage[2], username);
                 break;
             case ATTACK:
                 //Send message in format <protocol>##<username>##<damage>
-                sendMessageToPlayer(splitMessage[2], serverWorker);
+                sendMessageToPlayer(splitMessage[2], username);
                 break;
             case GAMEOVER:
                 //broadcast Scores to players (both players receive the message)
@@ -61,31 +59,31 @@ public enum MessageProtocol {
             case STATS:
                 //Get these from the database
                 String playerStats = null;
-                sendMessageToPlayer(playerStats, serverWorker);
+                sendMessageToPlayer(playerStats, username);
                 break;
         }
     }
 
-    private static void sendMessageToPlayer(String message, Server.ServerWorker serverWorker) {
+    private static void sendMessageToPlayer(String message, String username) {
 
-        Collection<Player> setPlayers = listOfPlayers.values();
+        Collection<Player> setPlayers = game.getPlayersList().values();
 
         for (Player player : setPlayers) {
-            if (player.getUsername().equals(serverWorker.getName())){
+            if (player.getUsername().equals(username)){
                 player.sendMessage(message);
             }
         }
     }
 
     private void broadcastMessage(String message){
-        for (Player player : listOfPlayers.values()) {
+        for (Player player : game.getPlayersList().values()) {
             player.sendMessage(message);
         }
     }
 
     public static void addPlayer(Player player, String name) {
         player.setUsername(name);
-        listOfPlayers.put(name, player);
+        game.addPlayer(player);
     }
 }
 
