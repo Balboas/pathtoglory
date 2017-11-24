@@ -1,6 +1,7 @@
 package org.academiadecodigo.balboas.view;
 
 import javafx.scene.image.ImageView;
+import org.academiadecodigo.balboas.model.Client;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
@@ -12,4 +13,6 @@ public interface Fighter {
     void moveRight(ImageView player1, ImageView player2, String clientName);
 
     void attack(ImageView player1, ImageView player2, String text, String clientName);
+
+    void setClient(Client newClient);
 }

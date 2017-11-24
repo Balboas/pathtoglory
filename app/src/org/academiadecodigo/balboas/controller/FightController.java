@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.academiadecodigo.balboas.view.Fighter;
 import org.academiadecodigo.balboas.model.Client;
+import org.academiadecodigo.balboas.view.Fighter1;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
@@ -15,6 +16,7 @@ public class FightController implements Controller {
 
 
     private Fighter fighter;
+    private int playerNumber;
 
     private static final String NAME = "FightView";
 
@@ -71,6 +73,10 @@ public class FightController implements Controller {
         return clientName;
     }
 
+    public Fighter getFighter() {
+        return fighter;
+    }
+
     public void setStrength(String strength){
         strengthLabel.setText(strength);
     }
@@ -88,6 +94,20 @@ public class FightController implements Controller {
     }
 
     public void setFighter(Fighter fighter) {
+        System.out.println(fighter.getClass().getSimpleName());
+        if (fighter.getClass().getSimpleName().equals("Fighter1")){
+            playerNumber = 1;
+        } else {
+            playerNumber = 2;
+        }
         this.fighter = fighter;
+    }
+
+    public void setOpponentPlayerPosition(String x){
+        if (playerNumber == 1){
+            player2.setX(Double.parseDouble(x));
+            return;
+        }
+        player1.setX(Double.parseDouble(x));
     }
 }

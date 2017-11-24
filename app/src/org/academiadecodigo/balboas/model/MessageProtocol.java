@@ -16,7 +16,8 @@ public enum MessageProtocol {
     LOGIN("LOGIN"),
     SENDDATA("SENDDATA"),
     FIGHT("FIGHT"),
-    ATTACK("ATTACK");
+    ATTACK("ATTACK"),
+    MOVE("MOVE");
 
     private String protocol;
     public static final String DELIMITER = "##";
@@ -33,7 +34,7 @@ public enum MessageProtocol {
 
         System.out.println("Message received: " + message);
         if (protocol == null) {
-            return null;
+            System.out.println("Not a message");
         }
 
         switch (protocol) {
@@ -73,11 +74,16 @@ public enum MessageProtocol {
                         fightController.setHealth(splittedMessage[3]);
                         fightController.setStrength(splittedMessage[4]);
                         fightController.setClient(controller.getClient());
+                        System.out.println("should be here");
+                        System.out.println("trying to set client to " + controller.getClient());
                         if (splittedMessage[5].equals("1")) {
+                            System.out.println("setting client");
                             fightController.setFighter(new Fighter1());
+                            fightController.getFighter().setClient(controller.getClient());
                             return;
                         }
                         fightController.setFighter(new Fighter2());
+                        fightController.getFighter().setClient(controller.getClient());
 
                     });
                     break;
@@ -89,6 +95,13 @@ public enum MessageProtocol {
                 if (!splittedMessage[2].equals(controller.getClientName())) {
                     controller.setHealth(splittedMessage[2]);
                 }
+                break;
+            case MOVE:
+                System.out.println("Move message: " + message);
+                FightController fightController =
+                        (FightController) Navigation.getInstance().getController(FightController.getName());
+
+                fightController.setOpponentPlayerPosition(splittedMessage[2]);
         }
         return null;
     }

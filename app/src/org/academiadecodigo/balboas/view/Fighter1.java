@@ -23,6 +23,8 @@ public class Fighter1 implements Fighter {
         if (player1.getX() <= 0) {
             player1.setX(0.0d);
         }
+        String message = MessageProtocol.encode(MessageProtocol.MOVE, "" + player1.getX(), clientName);
+        client.sendMessage(message);
     }
 
     @Override
@@ -36,6 +38,8 @@ public class Fighter1 implements Fighter {
         if (player1.getX() >= 320) {
             player1.setX(320.0d);
         }
+        String message = MessageProtocol.encode(MessageProtocol.MOVE, "" + player1.getX(), clientName);
+        client.sendMessage(message);
     }
 
     @Override
@@ -48,8 +52,8 @@ public class Fighter1 implements Fighter {
         }
     }
 
-    public void setClient(Client client){
-        this.client = client;
+    public void setClient(Client newClient){
+        client = newClient;
     }
 
     public void setController(FightController controller) {
