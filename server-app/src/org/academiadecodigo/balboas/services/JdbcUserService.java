@@ -167,4 +167,59 @@ public class JdbcUserService implements UserService {
         }
     }
 
+    public String getLife(String name) {
+
+        dbConnection = new ConnectionManager().getConnection();
+
+        try {
+
+            // create a query
+            String query = "SELECT life FROM userData WHERE name = ?";
+
+            // create a new statement
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+
+            statement.setString(1, name);
+
+            // execute the query
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("life");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getStrength(String name) {
+
+        dbConnection = new ConnectionManager().getConnection();
+
+        try {
+
+            // create a query
+            String query = "SELECT strength FROM userData WHERE name = ?";
+
+            // create a new statement
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+
+            statement.setString(1, name);
+
+            // execute the query
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("strength");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }
