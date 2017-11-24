@@ -1,5 +1,6 @@
 package org.academiadecodigo.balboas.view;
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.academiadecodigo.balboas.controller.FightController;
@@ -43,12 +44,18 @@ public class Fighter1 implements Fighter {
 
         player1.setImage(new Image("/punching1.png"));
         if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {
-            String message = MessageProtocol.encode(MessageProtocol.ATTACK, text, clientName);
-            client.sendMessage(message);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    String message = MessageProtocol.encode(MessageProtocol.ATTACK, text, clientName);
+                    System.out.println(message);
+                    client.sendMessage(message);
+                }
+            });
         }
     }
 
-    public void setClient(Client client){
+    public void setClient(Client client) {
         this.client = client;
     }
 

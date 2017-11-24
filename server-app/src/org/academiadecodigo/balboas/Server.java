@@ -54,7 +54,10 @@ public class Server {
         try {
             Socket socket = serverSocket.accept();
             System.out.println("Connection established");
-            service.submit(new ServerWorker(socket));
+            ServerWorker serverWorker = new ServerWorker(socket);
+            MessageProtocol.addServerWorkers(serverWorker);
+            service.submit(serverWorker);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,11 +66,15 @@ public class Server {
     }
 
 
-    private class ServerWorker implements Runnable {
+    public class ServerWorker implements Runnable {
+
+        private String playerName;
 
         private Socket socket;
         private BufferedReader reader;
         private PrintWriter writer;
+        private String name;
+        private int ID;
 
 
         ServerWorker(Socket socket) {
@@ -87,11 +94,16 @@ public class Server {
 
         private void getMessage(String message) {
 
-            String answer = MessageProtocol.decode(message);
+            if (message.startsWith(String.valueOf(MessageProtocol.MOVE))) {
+                MessageProtocol.decode(message, this);
+                return;
+            }
+
+            String answer = MessageProtocol.decode(message,this);
             sendMessage(answer);
         }
 
-        public void sendMessage(String message){
+        public void sendMessage(String message) {
             System.out.println("Send message from server");
             writer.println(message);
         }
@@ -117,6 +129,22 @@ public class Server {
                 }
             }
 
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
+        public int getID() {
+            return ID;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }

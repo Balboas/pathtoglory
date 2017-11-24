@@ -21,7 +21,6 @@ public enum MessageProtocol {
     private String protocol;
     public static final String DELIMITER = "##";
 
-
     MessageProtocol(String protocol) {
         this.protocol = protocol;
     }
