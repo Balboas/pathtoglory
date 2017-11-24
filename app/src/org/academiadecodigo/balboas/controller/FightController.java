@@ -5,15 +5,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import org.academiadecodigo.balboas.sound.SoundManager;
 import org.academiadecodigo.balboas.view.Fighter;
 import org.academiadecodigo.balboas.model.Client;
-import org.academiadecodigo.balboas.view.Fighter1;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
  */
 public class FightController implements Controller {
 
+    private SoundManager soundManager;
 
     private Fighter fighter;
     private int playerNumber;

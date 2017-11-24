@@ -1,0 +1,40 @@
+.root { /* selector */
+    -fx-background-color: dodgerblue; /* style rules */
+}
+#userFieldId {
+    -fx-background-radius: 20;
+}
+#passFieldId{
+    -fx-background-radius: 20;
+}
+#emailFieldId {
+    -fx-background-radius: 20;
+}
+#TittleId {
+    -fx-font-weight: bold;
+    -fx-text-fill: snow;
+    -fx-font-family: "Tahoma";
+}
+
+#userId {
+    -fx-text-fill: snow;
+    -fx-font-weight: bold;
+}
+#passwordId{
+    -fx-text-fill:  snow;
+    -fx-font-weight: bold;
+}
+#emailId{
+    -fx-text-fill:  snow;
+    -fx-font-weight: bold;
+}
+#registerLinkId{
+    -fx-text-fill:  snow;
+    -fx-font-weight: bold;
+}
+#MainButtonId{
+    -fx-background-color: snow;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: dodgerblue;
+}
