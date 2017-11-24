@@ -4,10 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.academiadecodigo.balboas.controller.LoginController;
 import org.academiadecodigo.balboas.controller.Navigation;
-import org.academiadecodigo.balboas.model.Client;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main extends Application {
 
