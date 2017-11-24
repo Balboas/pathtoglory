@@ -1,12 +1,12 @@
-package com.academiadecodigo.balboas.desktop;
+package org.academiadecodigo.balboas.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.academiadecodigo.balboas.Game;
+import org.academiadecodigo.balboas.Glory;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Game(), config);
+		new LwjglApplication(new Glory(), config);
 	}
 }
