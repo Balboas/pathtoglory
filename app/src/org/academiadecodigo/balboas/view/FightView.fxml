@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.FightController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.FightController">
    <children>
       <ImageView fitHeight="300.0" fitWidth="430.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../Downloads/fundo.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="fightButton" layoutX="310.0" layoutY="533.0" mnemonicParsing="false" text="Fight!" />
-      <Label alignment="CENTER" layoutX="40.0" layoutY="67.0" text="Test your strength">
+      <Button fx:id="fightButton" layoutX="310.0" layoutY="533.0" mnemonicParsing="false" onAction="#beginFight" text="Fight!" />
+      <Label alignment="CENTER" layoutX="38.0" layoutY="30.0" text="Test your strength" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="32.0" />
          </font>
@@ -30,9 +30,26 @@
             <Image url="@../../../../../../../../../Downloads/fighter2Still.png" />
          </image>
       </ImageView>
-      <Label layoutX="24.0" layoutY="128.0" text="Health" />
-      <Label layoutX="22.0" layoutY="157.0" text="Strength" />
-      <Label fx:id="healthLabel" layoutX="130.0" layoutY="128.0" text="Label" />
-      <Label fx:id="strengthLabel" layoutX="130.0" layoutY="157.0" text="Label" />
+      <Label layoutX="24.0" layoutY="128.0" text="Health" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font></Label>
+      <Label layoutX="22.0" layoutY="157.0" text="Strength" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font></Label>
+      <Label fx:id="healthLabel" layoutX="130.0" layoutY="128.0" text="Label" textFill="#48ff6a">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font></Label>
+      <Label fx:id="strengthLabel" layoutX="130.0" layoutY="157.0" text="Label" textFill="#0b91ff">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font></Label>
+      <Label layoutX="58.0" layoutY="87.0" text="Against" textFill="#fa2b1e">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

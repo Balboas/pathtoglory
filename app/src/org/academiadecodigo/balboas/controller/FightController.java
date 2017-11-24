@@ -1,5 +1,6 @@
 package org.academiadecodigo.balboas.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,8 +11,6 @@ import javafx.scene.input.KeyEvent;
  * Created by Daniel Baeta on 24/11/17.
  */
 public class FightController {
-
-
     @FXML
     private Button fightButton;
 
@@ -26,6 +25,11 @@ public class FightController {
 
     @FXML
     private Label strengthLabel;
+
+    @FXML
+    void beginFight(ActionEvent event) {
+
+    }
 
     @FXML
     void movePlayer(KeyEvent event) {
