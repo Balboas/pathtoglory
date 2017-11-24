@@ -85,8 +85,10 @@ public enum MessageProtocol {
                 break;
             case ATTACK:
                 FightController controller =
-                        (FightController) Navigation.getInstance().getController(FightController.getName());
-                controller.setHealth(splittedMessage[2]);
+                (FightController) Navigation.getInstance().getController(FightController.getName());
+                if (!splittedMessage[2].equals(controller.getClientName())) {
+                    controller.setHealth(splittedMessage[2]);
+                }
         }
         return null;
     }

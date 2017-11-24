@@ -67,6 +67,10 @@ public class FightController implements Controller {
         healthLabel.setText(health);
     }
 
+    public String getClientName(){
+        return clientName;
+    }
+
     public void setStrength(String strength){
         strengthLabel.setText(strength);
     }
