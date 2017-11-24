@@ -6,9 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.academiadecodigo.balboas.view.Fighter;
-import javafx.scene.input.KeyEvent;
 import org.academiadecodigo.balboas.model.Client;
-import org.academiadecodigo.balboas.model.MessageProtocol;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
@@ -48,20 +46,20 @@ public class FightController implements Controller {
     @FXML
     void fight(ActionEvent event) {
 
-        fighter.attack(player1, player2);
+        fighter.attack(player1, player2, strengthLabel.getText(), clientName);
 
     }
 
     @FXML
     void moveLeft(ActionEvent event) {
 
-       fighter.moveLeft(player1, player2);
+       fighter.moveLeft(player1, player2, clientName);
     }
 
     @FXML
     void moveRight(ActionEvent event) {
 
-        fighter.moveRight(player1, player2);
+        fighter.moveRight(player1, player2, clientName);
     }
 
     public void setHealth(String health){
@@ -85,4 +83,7 @@ public class FightController implements Controller {
         this.clientName = clientName;
     }
 
+    public void setFighter(Fighter fighter) {
+        this.fighter = fighter;
+    }
 }

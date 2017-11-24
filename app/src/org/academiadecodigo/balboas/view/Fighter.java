@@ -7,9 +7,9 @@ import javafx.scene.image.ImageView;
  */
 public interface Fighter {
 
-    void moveLeft(ImageView player1, ImageView player2);
+    void moveLeft(ImageView player1, ImageView player2, String clientName);
 
-    void moveRight(ImageView player1, ImageView player2);
+    void moveRight(ImageView player1, ImageView player2, String clientName);
 
-    void attack(ImageView player1, ImageView player2);
+    void attack(ImageView player1, ImageView player2, String text, String clientName);
 }
