@@ -18,7 +18,7 @@ public class Main extends Application {
 
 
         // Load the login screen§
-        navigation.loadScreen("mainView");
+        navigation.loadScreen("FightView");
 
         primaryStage.show();
     }

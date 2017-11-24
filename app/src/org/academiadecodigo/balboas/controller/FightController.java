@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import org.academiadecodigo.balboas.sound.SoundManager;
+import org.academiadecodigo.balboas.sound.SoundType;
 import org.academiadecodigo.balboas.view.Fighter;
 
 /**
@@ -12,6 +14,7 @@ import org.academiadecodigo.balboas.view.Fighter;
  */
 public class FightController {
 
+    private SoundManager soundManager;
 
     private Fighter fighter;
     @FXML
@@ -45,7 +48,8 @@ public class FightController {
     @FXML
     void moveLeft(ActionEvent event) {
 
-       fighter.moveLeft(player1, player2);
+
+        fighter.moveLeft(player1, player2);
     }
 
     @FXML
