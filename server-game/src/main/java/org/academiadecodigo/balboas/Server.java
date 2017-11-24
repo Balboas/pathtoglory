@@ -1,5 +1,6 @@
 package org.academiadecodigo.balboas;
 
+import org.academiadecodigo.balboas.service.JdbcUserService;
 import org.academiadecodigo.balboas.utils.MessageProtocol;
 
 import java.io.BufferedReader;
@@ -29,6 +30,7 @@ public class Server {
 
         Game game = new Game();
         MessageProtocol.setGame(game);
+        MessageProtocol.setJdbcUserService(new JdbcUserService());
 
         while (true) {
             server.acceptConnections();

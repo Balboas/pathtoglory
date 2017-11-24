@@ -10,7 +10,7 @@ import java.sql.*;
 /**
  * Created by Daniel Baeta on 15/11/17.
  */
-public class JdbcUserService  {
+public class JdbcUserService {
 
     private Connection dbConnection = null;
 
@@ -52,7 +52,7 @@ public class JdbcUserService  {
         return false;
     }
 
-    public void receiveLife(Player player, String username) {
+    public void receiveStatus(Player player, String username) {
 
         dbConnection = new ConnectionManager().getConnection();
         PreparedStatement statement = null;
@@ -82,4 +82,37 @@ public class JdbcUserService  {
         }
     }
 
+    public String sendStats(Player player, String username) {
+
+        dbConnection = new ConnectionManager().getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            // create a query
+            String query = "SELECT life, strength FROM userData WHERE name =?";
+
+            // create a new statement
+            statement = dbConnection.prepareStatement(query);
+            statement.setString(1, username);
+
+            // execute the query
+            ResultSet anwser = statement.executeQuery();
+            player.setHealth(anwser.getInt("life"));
+            player.setStrength(anwser.getInt("strength"));
+            String stats = anwser.getString("life") + anwser.getString("strength");
+            return stats;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+    }
 }

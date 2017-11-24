@@ -23,6 +23,7 @@ public class Game {
         if (playersList.size() == 2){
             for (Player p : playersList.values()) {
                 MessageProtocol.encode(MessageProtocol.BEGIN, p.getUsername(), "start the game");
+                start();
             }
         }
     }
@@ -35,13 +36,18 @@ public class Game {
         playersList.put(player.getUsername(), player);
     }
 
-    public void checkGameOver(){
+    public void start(){
+        checkGameOver();
+    }
 
-        for (Player player: playersList.values()) {
-            if(player.getHealth() <= 0){
-                String message = MessageProtocol.encode(MessageProtocol.BEGIN, player.getUsername(), "");
-                MessageProtocol.broadcastMessage(message);
-                break;
+    public void checkGameOver(){
+        while (true) {
+            for (Player player : playersList.values()) {
+                if (player.getHealth() <= 0) {
+                    String message = MessageProtocol.encode(MessageProtocol.BEGIN, player.getUsername(), "game over");
+                    MessageProtocol.broadcastMessage(message);
+                    return;
+                }
             }
         }
     }

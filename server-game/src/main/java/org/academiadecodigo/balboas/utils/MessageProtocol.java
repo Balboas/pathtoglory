@@ -49,10 +49,11 @@ public enum MessageProtocol {
         //<protocol>##<username>##<username>##<password>
 
         switch (protocol) {
-                case LOGIN:
-                    if(jdbcUserService.authenticate(splitMessage[2],splitMessage[3])) {
+            case LOGIN:
+                if (jdbcUserService.authenticate(splitMessage[2], splitMessage[3])) {
                     addPlayer(new Player(serverWorker), splitMessage[1]);
-                    jdbcUserService.receiveLife(game.getPlayersList().get(username), username);
+                    jdbcUserService.receiveStatus(game.getPlayersList().get(username), username);
+                    game.checkGameReadyToStart();
                 }
                 //JDBC service
                 break;
@@ -61,17 +62,11 @@ public enum MessageProtocol {
                 break;
             case ATTACK:
                 //Send message in format <protocol>##<username>##<damage>
-                getOpponentPlayer(username).sufferAttack(Integer.getInteger(splitMessage[2]));
-                break;
-            case GAMEOVER:
-                game.stop();
-                //broadcast Scores to players (both players receive the message)
-                //broadcastMessage();
+                getOpponentPlayer(username).sufferAttack(game.getPlayersList().get(username).getStrength());
                 break;
             case STATS:
                 //Get these from the database
-                String playerStats = null;
-                sendMessageToPlayer(playerStats, username);
+                sendMessageToPlayer(jdbcUserService.sendStats(game.getPlayersList().get(username), username), username);
                 break;
         }
     }
@@ -81,7 +76,7 @@ public enum MessageProtocol {
         Collection<Player> setPlayers = game.getPlayersList().values();
 
         for (Player player : setPlayers) {
-            if (player.getUsername().equals(username)){
+            if (player.getUsername().equals(username)) {
                 player.sendMessage(message);
             }
         }
@@ -92,33 +87,23 @@ public enum MessageProtocol {
         Collection<Player> setPlayers = game.getPlayersList().values();
 
         for (Player player : setPlayers) {
-            if (!player.getUsername().equals(username)){
+            if (!player.getUsername().equals(username)) {
                 player.sendMessage(message);
             }
         }
     }
 
-    private static Player getPlayer(String userName) {
-
-        for (Player player : game.getPlayersList().values()){
-            if(player.getUsername().equals(userName)){
-                return player;
-            }
-        }
-        return null;
-    }
-
     private static Player getOpponentPlayer(String userName) {
 
-        for (Player player : game.getPlayersList().values()){
-            if(!player.getUsername().equals(userName)){
+        for (Player player : game.getPlayersList().values()) {
+            if (!player.getUsername().equals(userName)) {
                 return player;
             }
         }
         return null;
     }
 
-    public static void broadcastMessage(String message){
+    public static void broadcastMessage(String message) {
         for (Player player : game.getPlayersList().values()) {
             player.sendMessage(message);
         }

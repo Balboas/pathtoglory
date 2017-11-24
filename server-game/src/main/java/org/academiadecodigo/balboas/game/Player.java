@@ -10,8 +10,10 @@ public class Player {
 
     private Server.ServerWorker serverWorker;
     private int health;
+    private int strength;
 
     private String username;
+
 
     public Player(Server.ServerWorker serverWorker) {
         this.serverWorker = serverWorker;
@@ -26,6 +28,8 @@ public class Player {
         health -= damage;
     }
 
+
+
     public String getUsername() {
         return username;
     }
@@ -39,10 +43,20 @@ public class Player {
     }
 
     public void setHealth(int health) {
+        System.out.println(health);
         this.health = health;
+    }
+
+    public void setStrength(int strength) {
+        System.out.println(strength);
+        this.strength = strength;
     }
 
     public int getHealth() {
         return health;
+    }
+
+    public int getStrength() {
+        return strength;
     }
 }
