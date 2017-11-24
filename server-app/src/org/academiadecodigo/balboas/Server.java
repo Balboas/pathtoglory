@@ -1,5 +1,7 @@
 package org.academiadecodigo.balboas;
 
+import org.academiadecodigo.balboas.services.JdbcUserService;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +22,8 @@ public class Server {
 
 
     Server() {
+        JdbcUserService jdbcUserService = new JdbcUserService();
+        MessageProtocol.setService(jdbcUserService);
         init();
     }
 
@@ -38,6 +42,7 @@ public class Server {
         try {
             serverSocket = new ServerSocket(portNumber);
             service = Executors.newCachedThreadPool();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,6 +53,7 @@ public class Server {
 
         try {
             Socket socket = serverSocket.accept();
+            System.out.println("Connection established");
             service.submit(new ServerWorker(socket));
 
         } catch (IOException e) {
@@ -81,11 +87,12 @@ public class Server {
 
         private void getMessage(String message) {
 
-            MessageProtocol.decode(message);
+            String answer = MessageProtocol.decode(message);
+            sendMessage(answer);
         }
 
         public void sendMessage(String message){
-
+            System.out.println("Send message from server");
             writer.println(message);
         }
 
@@ -95,13 +102,17 @@ public class Server {
             String message = "";
 
             try {
-                while ((message = reader.readLine()) != null) {
+                while (true) {
+                    message = reader.readLine();
+                    System.out.println(message);
+                    System.out.println("Message read in Server Side " + message);
                     getMessage(message);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
                 try {
+                    System.out.println("socket closed");
                     socket.close();
                 } catch (IOException e) {
                     e.printStackTrace();

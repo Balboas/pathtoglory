@@ -1,6 +1,6 @@
 package org.academiadecodigo.balboas.services;
 
-import org.academiadecodigo.balboas.model.User;
+import org.academiadecodigo.balboas.persistance.ConnectionManager;
 import org.academiadecodigo.balboas.utils.Security;
 
 
@@ -13,13 +13,10 @@ public class JdbcUserService implements UserService {
 
     private Connection dbConnection = null;
 
-    public JdbcUserService(Connection connection) {
-        this.dbConnection = connection;
-    }
-
     // get the results
     @Override
     public long count() {
+
         int result = 0;
 
         // create a new statement
@@ -28,7 +25,7 @@ public class JdbcUserService implements UserService {
             statement = dbConnection.createStatement();
 
             // create a query
-            String query = "SELECT COUNT(*) FROM user";
+            String query = "SELECT COUNT(*) FROM userData";
 
             // execute the query
             ResultSet resultSet = null;
@@ -51,94 +48,102 @@ public class JdbcUserService implements UserService {
     @Override
     public boolean authenticate(String username, String password) {
 
+        System.out.println("Trying to authenticate a user");
 
-        String query = "SELECT * FROM user WHERE user_name=? AND password=?";
+        dbConnection = new ConnectionManager().getConnection();
         PreparedStatement statement = null;
-        try {
-            statement = dbConnection.prepareStatement(query);
-            System.out.println(query);
 
-            // set values for the placeholders
+        try {
+
+            // create a query
+            String query = "SELECT name, password FROM userData WHERE name =? AND password =?";
+
+            // create a new statement
+            statement = dbConnection.prepareStatement(query);
+
             statement.setString(1, username);
             statement.setString(2, Security.getHash(password));
 
             // execute the query
+            ResultSet answer = statement.executeQuery();
+
+            return answer.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public boolean addUser(String username, String password, String email) {
+
+        if (findByName(username)) {
+            return false;
+        }
+
+        dbConnection = new ConnectionManager().getConnection();
+        try {
+            // create a new statement
+            Statement statement = dbConnection.createStatement();
+
+            // create a query
+            String query = "INSERT INTO userData(name, password, email) VALUES ('" + username + "','" + Security.getHash(password) + "','" + email + "')";
+
+            // execute the query
+            int i = statement.executeUpdate(query);
+
+            if (i == 1) {
+                System.out.println("User added");
+            }
+
+            statement.close();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public boolean findByName(String username) {
+
+        dbConnection = new ConnectionManager().getConnection();
+
+        try {
+
+            // create a query
+            String query = "SELECT name FROM userData WHERE name = ?";
+
+            // create a new statement
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+
+            statement.setString(1, username);
+
+            // execute the query
             ResultSet resultSet = statement.executeQuery();
+
+            // user exists
             if (resultSet.next()) {
+                statement.close();
                 return true;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return false;
-    }
-
-
-
-
-  @Override
-    public void addUser(User user) {
-        PreparedStatement preparedStatement = null;
-        String query = "INSERT INTO user(user_name, password,email) VALUES('" + user.getUserName() + "','" + user.getPassWord() + "','" + user.getEmail() + "');";
-        System.out.println(query);
-        try {
-            preparedStatement = dbConnection.prepareStatement(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        boolean resultSet;
-        try {
-            resultSet = preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (resultSet = false) {
-            return;
-        }
-    }
-
-
-    @Override
-    public User findByName(String username) {
-        User user = null;
-        String query = "SELECT * FROM user WHERE user_name=?";
-
-        PreparedStatement statement = null;
-        try {
-            statement = dbConnection.prepareStatement(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // set values for the placeholders
-        try {
-            statement.setString(1, username);
-
-
-            // execute the query
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-
-                String usernameValue = resultSet.getString("user_name");
-                String passwordValue = resultSet.getString("password");
-                String emailValue = resultSet.getString("email");
-
-                user = new User(usernameValue, passwordValue, emailValue);
-                System.out.println(user);
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        }
-        return user;
     }
 }

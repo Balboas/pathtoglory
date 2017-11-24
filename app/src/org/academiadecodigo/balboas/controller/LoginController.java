@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * Created by codecadet on 23/11/17.
  */
-public class LoginController implements Controller{
+public class LoginController implements Controller {
 
     private static final String NAME = "Login";
     private Client client;
@@ -54,7 +54,9 @@ public class LoginController implements Controller{
 
     private boolean login = true;
 
-    public void initialize () {
+    public void initialize() {
+        client = new Client(this);
+
         emailId.setVisible(false);
         emailFieldId.setVisible(false);
     }
@@ -80,7 +82,8 @@ public class LoginController implements Controller{
         }
 
     }
-    private void showLogin() {
+
+    public void showLogin() {
 
         login = true;
 
@@ -88,7 +91,6 @@ public class LoginController implements Controller{
 
         emailId.setVisible(false);
         emailFieldId.setVisible(false);
-
 
 
         mainButtonId.setText("Login");
@@ -122,12 +124,12 @@ public class LoginController implements Controller{
             return;
         }
 
-        showConsoleText("login accepted");
+
         String username = userFieldId.getText();
         String password = passFieldId.getText();
         String message = MessageProtocol.encode(MessageProtocol.LOGIN, username + MessageProtocol.DELIMITER + password, username);
         client.sendMessage(message);
-        Navigation.getInstance().loadScreen(MainController.getName());
+
     }
 
     private void doRegister() {
@@ -150,26 +152,26 @@ public class LoginController implements Controller{
         String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(emailFieldId.getText());
-        if (!matcher.matches()) {
 
+        if (!matcher.matches()) {
 
             showConsoleText("not valid e-mail");
 
             return;
         }
 
-        showLogin();
         String username = userFieldId.getText();
         String password = passFieldId.getText();
         String email = emailFieldId.getText();
         String message = MessageProtocol.encode(MessageProtocol.REGISTER,
-                username + MessageProtocol.DELIMITER+password + MessageProtocol.DELIMITER + email, username);
+                username + MessageProtocol.DELIMITER + password + MessageProtocol.DELIMITER + email, username);
+
         client.sendMessage(message);
         showConsoleText("registration successful");
 
     }
 
-    private void showConsoleText(String text) {
+    public void showConsoleText(String text) {
 
         messagesId.setText("console.log(\"" + text + "\");");
         messagesId.setVisible(true);
