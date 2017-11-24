@@ -10,7 +10,8 @@ public enum MessageProtocol {
 
     REGISTER("REG"),
     LOGIN("LOGIN"),
-    SENDDATA("SENDDATA");
+    SENDDATA("SENDDATA"),
+    FIGHT("FIGHT");
 
     private String protocol;
     private static JdbcUserService jdbcUserService;
@@ -49,6 +50,10 @@ public enum MessageProtocol {
                 System.out.println("Data received from second view");
                 jdbcUserService.registerData(splittedMessage[1], splittedMessage[2], splittedMessage[3], splittedMessage[4], splittedMessage[5]);
                 return encode(SENDDATA, "done");
+            case FIGHT:
+                String life = jdbcUserService.getLife(splittedMessage[1]);
+                String strength = jdbcUserService.getStrength(splittedMessage[1]);
+                return encode(FIGHT, "done" + DELIMITER + splittedMessage[2] + DELIMITER + life + DELIMITER + strength);
         }
         return null;
     }

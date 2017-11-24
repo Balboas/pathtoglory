@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.MainController">
    <children>
       <Label layoutX="76.0" layoutY="85.0" text="GYM">
          <font>
@@ -39,5 +38,6 @@
       <Label layoutX="287.0" layoutY="258.0" text="cigarretes" />
       <Button fx:id="backButton" layoutX="98.0" layoutY="329.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
       <Button fx:id="sendButton" layoutX="262.0" layoutY="329.0" mnemonicParsing="false" onAction="#onSendButton" text="Send" />
+      <Button fx:id="fightButton" layoutX="188.0" layoutY="382.0" mnemonicParsing="false" onAction="#onFightButton" text="Fight" />
    </children>
 </Pane>

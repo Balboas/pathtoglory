@@ -1,10 +1,7 @@
 package org.academiadecodigo.balboas.model;
 
 import javafx.application.Platform;
-import org.academiadecodigo.balboas.controller.Controller;
-import org.academiadecodigo.balboas.controller.LoginController;
-import org.academiadecodigo.balboas.controller.MainController;
-import org.academiadecodigo.balboas.controller.Navigation;
+import org.academiadecodigo.balboas.controller.*;
 
 import java.lang.management.PlatformLoggingMXBean;
 
@@ -15,8 +12,8 @@ public enum MessageProtocol {
 
     REGISTER("REG"),
     LOGIN("LOGIN"),
-    SENDDATA("SENDDATA");
-
+    SENDDATA("SENDDATA"),
+    FIGHT("FIGHT");
 
     private String protocol;
     public static final String DELIMITER = "##";
@@ -60,7 +57,20 @@ public enum MessageProtocol {
 
                 }
                 break;
-
+            case FIGHT:
+                if(splittedMessage[1].equals("done")){
+                    MainController controller = (MainController) Navigation.getInstance().getController(MainController.getName());
+                    Platform.runLater(() -> {
+                        Navigation.getInstance().loadScreen(FightController.getName());
+                        FightController fightController = (FightController) Navigation.getInstance().getController(FightController.getName());
+                        fightController.setClient(controller.getClient());
+                        fightController.setClientName(splittedMessage[2]);
+                        fightController.setHealth(splittedMessage[3]);
+                        fightController.setStrength(splittedMessage[4]);
+                    });
+                    break;
+                }
+                break;
         }
         return null;
     }

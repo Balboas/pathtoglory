@@ -60,8 +60,20 @@ public class MainController implements Controller{
     }
 
     @FXML
+    void onFightButton(ActionEvent event){
+
+        String message = MessageProtocol.encode(MessageProtocol.FIGHT, "get", clientName);
+        client.sendMessage(message);
+
+    }
+
+    @FXML
     void initialize() {
 
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     public static String getName() {

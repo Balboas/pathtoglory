@@ -6,11 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import org.academiadecodigo.balboas.model.Client;
+import org.academiadecodigo.balboas.model.MessageProtocol;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
  */
-public class FightController {
+public class FightController implements Controller{
+
+    private static final String NAME = "FightView";
+
     @FXML
     private Button fightButton;
 
@@ -25,6 +30,10 @@ public class FightController {
 
     @FXML
     private Label strengthLabel;
+
+    private Client client;
+
+    private String clientName;
 
     @FXML
     void beginFight(ActionEvent event) {
@@ -53,19 +62,32 @@ public class FightController {
                 break;
             case SPACE:
                 if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {
-                    fight.attack();
+                   // fight.attack();
                     //Vai decrementar a vida do player2
                 }
                 break;
         }
     }
 
-    public void setHealth(int health){
-        healthLabel.setText(String.valueOf(health));
+    public void setHealth(String health){
+
+        healthLabel.setText(health);
     }
 
-    public void setStrength(int strength){
-        strengthLabel.setText(String.valueOf(strength));
+    public void setStrength(String strength){
+        strengthLabel.setText(strength);
+    }
+
+    public static String getName() {
+        return NAME;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
 }
