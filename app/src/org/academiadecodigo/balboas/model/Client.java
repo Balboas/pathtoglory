@@ -36,7 +36,7 @@ public class Client implements Runnable {
 
             System.out.println("Connect done client");
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 

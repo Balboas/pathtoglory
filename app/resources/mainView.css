@@ -53,3 +53,9 @@
 #cigarretesId{
     -fx-text-fill: snow;
 }
+#fightButton{
+    -fx-background-color: snow;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: forestgreen;
+}
