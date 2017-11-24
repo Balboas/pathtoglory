@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.FightController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#move" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.FightController">
    <children>
       <ImageView fitHeight="300.0" fitWidth="430.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../Downloads/fundo.jpg" />
+            <Image url="@/fundo.jpg" />
          </image>
       </ImageView>
       <Button fx:id="fightButton" layoutX="310.0" layoutY="533.0" mnemonicParsing="false" onAction="#beginFight" text="Fight!" />
@@ -20,14 +20,14 @@
             <Font name="Arial Black" size="32.0" />
          </font>
       </Label>
-      <ImageView fx:id="player1" fitHeight="209.0" fitWidth="109.0" layoutX="-1.0" layoutY="294.0" onKeyPressed="#movePlayer" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="player1" fitHeight="209.0" fitWidth="109.0" layoutX="-1.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../Downloads/fighter1Still.png" />
+            <Image url="@/fighter1Still.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="player2" fitHeight="209.0" fitWidth="84.0" layoutX="310.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="player2" fitHeight="209.0" fitWidth="84.0"  layoutY="294.0" pickOnBounds="true" preserveRatio="true" x="310.0">
          <image>
-            <Image url="@../../../../../../../../../Downloads/fighter2Still.png" />
+            <Image url="@/fighter2Still.png" />
          </image>
       </ImageView>
       <Label layoutX="24.0" layoutY="128.0" text="Health" textFill="WHITE">

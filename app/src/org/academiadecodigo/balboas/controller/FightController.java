@@ -32,7 +32,40 @@ public class FightController {
     }
 
     @FXML
-    void movePlayer(KeyEvent event) {
+    void move(KeyEvent event) {
 
+        System.out.println(event.getCode());
+        switch (event.getCode()) {
+            case LEFT:
+                player1.setX(player1.getX() - 20.0d);
+                if (player1.getX() <= 0) {
+                    player1.setX(0.0d);
+                }
+                break;
+            case RIGHT:
+                player1.setX(player1.getX() + 20.0d);
+                if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {
+                    player1.setX(player2.getX() - player2.getFitWidth());
+                }
+                if (player1.getX() >= 320) {
+                    player1.setX(320.0d);
+                }
+                break;
+            case SPACE:
+                if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {
+                    fight.attack();
+                    //Vai decrementar a vida do player2
+                }
+                break;
+        }
     }
+
+    public void setHealth(int health){
+        healthLabel.setText(String.valueOf(health));
+    }
+
+    public void setStrength(int strength){
+        strengthLabel.setText(String.valueOf(strength));
+    }
+
 }
