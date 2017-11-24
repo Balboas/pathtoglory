@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#move" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.FightController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.academiadecodigo.balboas.controller.FightController">
    <children>
       <ImageView fitHeight="300.0" fitWidth="430.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/fundo.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="fightButton" layoutX="310.0" layoutY="533.0" mnemonicParsing="false" onAction="#beginFight" text="Fight!" />
+      <Button fx:id="fightButton" layoutX="173.0" layoutY="532.0" mnemonicParsing="false" onAction="#fight" text="Fight!" />
       <Label alignment="CENTER" layoutX="38.0" layoutY="30.0" text="Test your strength" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="32.0" />
@@ -25,7 +25,7 @@
             <Image url="@/fighter1Still.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="player2" fitHeight="209.0" fitWidth="84.0"  layoutY="294.0" pickOnBounds="true" preserveRatio="true" x="310.0">
+      <ImageView fx:id="player2" fitHeight="209.0" fitWidth="84.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true" x="310.0">
          <image>
             <Image url="@/fighter2Still.png" />
          </image>
@@ -51,5 +51,7 @@
             <Font name="Arial Black" size="14.0" />
          </font>
       </Label>
+      <Button fx:id="moveLeftButton" layoutX="15.0" layoutY="532.0" mnemonicParsing="false" onAction="#moveLeft" text="&lt;- Move Left" />
+      <Button fx:id="moveRightButton" layoutX="283.0" layoutY="532.0" mnemonicParsing="false" onAction="#moveRight" text="Move Right -&gt;" />
    </children>
 </Pane>
