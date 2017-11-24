@@ -4,9 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
+import org.academiadecodigo.balboas.view.Fighter;
+import org.academiadecodigo.balboas.view.Fighter1;
+import org.academiadecodigo.balboas.view.Fighter2;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
@@ -14,7 +15,7 @@ import javafx.scene.input.KeyEvent;
 public class FightController {
 
 
-
+    private Fighter fighter
     @FXML
     private Button fightButton;
 
@@ -39,34 +40,20 @@ public class FightController {
     @FXML
     void fight(ActionEvent event) {
 
-        player1.setImage(new Image("/punching1.png"));
-        if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {
-            //fight.attack();
-            //Vai decrementar a vida do player2
-        }
+        fighter.attack(player1, player2);
+
     }
 
     @FXML
     void moveLeft(ActionEvent event) {
 
-        player1.setImage(new Image("/fighter1Still.png"));
-        player1.setX(player1.getX() - 20.0d);
-        if (player1.getX() <= 0) {
-            player1.setX(0.0d);
-        }
+       fighter.moveLeft(player1, player2);
     }
 
     @FXML
     void moveRight(ActionEvent event) {
 
-        player1.setImage(new Image("/fighter1Still.png"));
-        player1.setX(player1.getX() + 20.0d);
-        if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {
-            player1.setX(player2.getX() - player2.getFitWidth());
-        }
-        if (player1.getX() >= 320) {
-            player1.setX(320.0d);
-        }
+        fighter.moveRight(player1, player2);
     }
 
 
