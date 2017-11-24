@@ -3,6 +3,7 @@ package org.academiadecodigo.balboas.utils;
 import org.academiadecodigo.balboas.Game;
 import org.academiadecodigo.balboas.Server;
 import org.academiadecodigo.balboas.game.Player;
+import org.academiadecodigo.balboas.service.JdbcUserService;
 
 import java.util.*;
 
@@ -21,6 +22,7 @@ public enum MessageProtocol {
     private String protocolTag;
     public static final String DELIMITER = "##";
     private static Game game;
+    private static JdbcUserService jdbcUserService;
 
     MessageProtocol(String protocolTag) {
         this.protocolTag = protocolTag;
@@ -28,6 +30,10 @@ public enum MessageProtocol {
 
     public static void setGame(Game newGame) {
         game = newGame;
+    }
+
+    public static void setJdbcUserService(JdbcUserService service) {
+        jdbcUserService = service;
     }
 
     public static String encode(MessageProtocol protocol, String username, String message) {
@@ -40,9 +46,14 @@ public enum MessageProtocol {
         MessageProtocol protocol = MessageProtocol.valueOf(splitMessage[0]);
         String username = splitMessage[1];
 
+        //<protocol>##<username>##<username>##<password>
+
         switch (protocol) {
-            case LOGIN:
-                addPlayer(new Player(serverWorker), splitMessage[1]);
+                case LOGIN:
+                    if(jdbcUserService.authenticate(splitMessage[2],splitMessage[3])) {
+                    addPlayer(new Player(serverWorker), splitMessage[1]);
+                    jdbcUserService.receiveLife(game.getPlayersList().get(username), username);
+                }
                 //JDBC service
                 break;
             case MOVE:
@@ -85,6 +96,16 @@ public enum MessageProtocol {
                 player.sendMessage(message);
             }
         }
+    }
+
+    private static Player getPlayer(String userName) {
+
+        for (Player player : game.getPlayersList().values()){
+            if(player.getUsername().equals(userName)){
+                return player;
+            }
+        }
+        return null;
     }
 
     private static Player getOpponentPlayer(String userName) {
