@@ -96,14 +96,13 @@ public class JdbcUserService implements UserService {
             Statement statement = dbConnection.createStatement();
 
             // create a query
-            String query = "INSERT INTO userData(name, password, email) VALUES ('" + username + "','" + Security.getHash(password) + "','" + email + "')";
+            String query = "INSERT INTO userData(name, password, email, life, strength) VALUES ('" + username + "','" + Security.getHash(password) + "','" + email + "'," + 0 + "," + 0 + ")";
 
             // execute the query
-            int i = statement.executeUpdate(query);
+            statement.executeUpdate(query);
 
-            if (i == 1) {
-                System.out.println("User added");
-            }
+            System.out.println("User added");
+
 
             statement.close();
             return true;
@@ -146,4 +145,26 @@ public class JdbcUserService implements UserService {
 
         return false;
     }
+
+
+    public void registerData(String name, String gym, String diet, String beer, String smoke) {
+
+        dbConnection = new ConnectionManager().getConnection();
+        try {
+            // create a new statement
+            Statement statement = dbConnection.createStatement();
+
+            // create a query
+            String query = "INSERT INTO userRecords(name, gym, diet, beer, smoke) VALUES ('" + name + "','" + gym + "','" + diet + "','" + beer + "','" + smoke + "')";
+
+            // execute the query
+            int i = statement.executeUpdate(query);
+
+            statement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

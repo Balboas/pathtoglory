@@ -104,8 +104,6 @@ public class Server {
             try {
                 while (true) {
                     message = reader.readLine();
-                    System.out.println(message);
-                    System.out.println("Message read in Server Side " + message);
                     getMessage(message);
                 }
             } catch (IOException e) {

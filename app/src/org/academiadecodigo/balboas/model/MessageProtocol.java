@@ -42,17 +42,23 @@ public enum MessageProtocol {
                     System.out.println("Entering login");
                     LoginController controller = (LoginController) Navigation.getInstance().getController(LoginController.getNAME());
                     Platform.runLater(() -> {controller.showConsoleText("login accepted");
-                    Navigation.getInstance().loadScreen(MainController.getName());});
+                    Navigation.getInstance().loadScreen(MainController.getName());
+                    MainController mainController = (MainController) Navigation.getInstance().getController(MainController.getName());
+                    mainController.setClientName(splittedMessage[2]);
+                    mainController.setClient(controller.getClient());});
                     break;
                 }
                 break;
             case REGISTER:
                 if(splittedMessage[1].equals("done")){
                     LoginController controller = (LoginController) Navigation.getInstance().getController(LoginController.getNAME());
-                    controller.showLogin();
+                    Platform.runLater(() -> controller.showLogin());
                 }
                 break;
             case SENDDATA:
+                if(splittedMessage[1].equals("done")){
+
+                }
                 break;
 
         }

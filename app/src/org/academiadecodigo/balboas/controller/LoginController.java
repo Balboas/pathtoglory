@@ -182,5 +182,9 @@ public class LoginController implements Controller {
     public static String getNAME() {
         return NAME;
     }
+
+    public Client getClient() {
+        return client;
+    }
 }
 

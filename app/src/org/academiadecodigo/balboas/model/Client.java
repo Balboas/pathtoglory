@@ -61,7 +61,7 @@ public class Client implements Runnable {
             //Keeps waiting for messages
             while (true) {
                 message = reader.readLine();
-                System.out.println("Message readen inside client ");
+                System.out.println("Message readen inside client " + message);
                 getMessage(message);
             }
         } catch (IOException e) {

@@ -9,7 +9,8 @@ import org.academiadecodigo.balboas.services.UserService;
 public enum MessageProtocol {
 
     REGISTER("REG"),
-    LOGIN("LOGIN");
+    LOGIN("LOGIN"),
+    SENDDATA("SENDDATA");
 
     private String protocol;
     private static JdbcUserService jdbcUserService;
@@ -34,16 +35,20 @@ public enum MessageProtocol {
 
         switch (protocol) {
             case LOGIN:
-                if(jdbcUserService.authenticate(splittedMessage[2], splittedMessage[3])){
+                if (jdbcUserService.authenticate(splittedMessage[2], splittedMessage[3])) {
                     System.out.println("User ok!");
-                    return encode(LOGIN, "done");
+                    return encode(LOGIN, "done" + DELIMITER + splittedMessage[2]);
                 }
                 break;
             case REGISTER:
-                if(jdbcUserService.addUser(splittedMessage[2], splittedMessage[3], splittedMessage[4])){
+                if (jdbcUserService.addUser(splittedMessage[2], splittedMessage[3], splittedMessage[4])) {
                     return encode(REGISTER, "done");
                 }
                 break;
+            case SENDDATA:
+                System.out.println("Data received from second view");
+                jdbcUserService.registerData(splittedMessage[1], splittedMessage[2], splittedMessage[3], splittedMessage[4], splittedMessage[5]);
+                return encode(SENDDATA, "done");
         }
         return null;
     }
@@ -54,8 +59,8 @@ public enum MessageProtocol {
 
     }
 
-    public static void setService(UserService userService){
-        if(userService instanceof JdbcUserService){
+    public static void setService(UserService userService) {
+        if (userService instanceof JdbcUserService) {
             jdbcUserService = (JdbcUserService) userService;
 
         }
