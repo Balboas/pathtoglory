@@ -1,0 +1,55 @@
+.root { /* selector */
+    -fx-background-color: forestgreen; /* style rules */
+}
+#gymField{
+    -fx-background-radius: 20;
+}
+#dietField{
+    -fx-background-radius: 20;
+}
+#beerField {
+    -fx-background-radius: 20;
+}
+#smokeField {
+    -fx-background-radius: 20;
+}
+#gymId {
+    -fx-text-fill: snow;
+    -fx-font-weight: bold;
+}
+#dietId{
+    -fx-text-fill:  snow;
+    -fx-font-weight: bold;
+}
+#BeerId{
+    -fx-text-fill:  snow;
+    -fx-font-weight: bold;
+}
+#smokeId{
+    -fx-text-fill:  snow;
+    -fx-font-weight: bold;
+}
+#sendButton{
+    -fx-background-color: snow;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: forestgreen;
+}
+#backButton{
+    -fx-background-color: snow;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: forestgreen;
+}
+#timesId{
+    -fx-text-fill: snow;
+}
+#kcalId{
+    -fx-text-fill: snow;
+}
+#cansId{
+    -fx-text-fill: snow;
+}
+#cigarretesId{
+    -fx-text-fill: snow;
+}
