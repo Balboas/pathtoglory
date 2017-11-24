@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.academiadecodigo.balboas.view.Fighter;
-import org.academiadecodigo.balboas.view.Fighter1;
-import org.academiadecodigo.balboas.view.Fighter2;
 
 /**
  * Created by Daniel Baeta on 24/11/17.
@@ -15,7 +13,7 @@ import org.academiadecodigo.balboas.view.Fighter2;
 public class FightController {
 
 
-    private Fighter fighter
+    private Fighter fighter;
     @FXML
     private Button fightButton;
 
