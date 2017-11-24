@@ -46,13 +46,14 @@ public enum MessageProtocol {
                 //JDBC service
                 break;
             case MOVE:
-                sendMessageToPlayer(splitMessage[2], username);
+                sendMessageToOpponentPlayer(splitMessage[2], username);
                 break;
             case ATTACK:
                 //Send message in format <protocol>##<username>##<damage>
-                sendMessageToPlayer(splitMessage[2], username);
+                getOpponentPlayer(username).sufferAttack(Integer.getInteger(splitMessage[2]));
                 break;
             case GAMEOVER:
+                game.stop();
                 //broadcast Scores to players (both players receive the message)
                 //broadcastMessage();
                 break;
@@ -75,7 +76,28 @@ public enum MessageProtocol {
         }
     }
 
-    private void broadcastMessage(String message){
+    private static void sendMessageToOpponentPlayer(String message, String username) {
+
+        Collection<Player> setPlayers = game.getPlayersList().values();
+
+        for (Player player : setPlayers) {
+            if (!player.getUsername().equals(username)){
+                player.sendMessage(message);
+            }
+        }
+    }
+
+    private static Player getOpponentPlayer(String userName) {
+
+        for (Player player : game.getPlayersList().values()){
+            if(!player.getUsername().equals(userName)){
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public static void broadcastMessage(String message){
         for (Player player : game.getPlayersList().values()) {
             player.sendMessage(message);
         }
