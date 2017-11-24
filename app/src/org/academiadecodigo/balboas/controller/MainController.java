@@ -39,11 +39,14 @@ public class MainController implements Controller{
 
     @FXML
     private Button sendButton;
+    private String clientName;
 
     @FXML
     void onBackButton(ActionEvent event) {
 
         Navigation.getInstance().back();
+        Navigation.getInstance().back();
+        Navigation.getInstance().loadScreen(LoginController.getNAME());
     }
 
     @FXML
@@ -52,18 +55,25 @@ public class MainController implements Controller{
         String stringBuilder = new StringBuilder(gymField.getText()).append(MessageProtocol.DELIMITER).append(dietField.getText())
                 .append(MessageProtocol.DELIMITER).append(beerField.getText()).append(MessageProtocol.DELIMITER).append(smokeField.getText()).toString();
 
-        String message = MessageProtocol.encode(MessageProtocol.SENDDATA, stringBuilder, user.getUserName());
+        String message = MessageProtocol.encode(MessageProtocol.SENDDATA, stringBuilder, clientName);
         client.sendMessage(message);
     }
 
     @FXML
     void initialize() {
 
-        client = new Client(this);
     }
 
     public static String getName() {
         return NAME;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 }
 

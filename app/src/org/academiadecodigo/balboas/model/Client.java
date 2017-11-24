@@ -22,6 +22,7 @@ public class Client implements Runnable {
     public Client(Controller controller) {
 
         this.controller = controller;
+        connect();
     }
 
     //Must be invoked after instantiation
@@ -29,8 +30,11 @@ public class Client implements Runnable {
 
         try {
             socket = new Socket("localhost", port);
-            writer = new PrintWriter(socket.getOutputStream());
+            writer = new PrintWriter(socket.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            new Thread(this).start();
+
+            System.out.println("Connect done client");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,6 +42,7 @@ public class Client implements Runnable {
 
     //Messages must be encoded before.
     public void sendMessage(String message){
+        System.out.println("Send message from client " + message);
         writer.println(message);
     }
 
@@ -54,13 +59,16 @@ public class Client implements Runnable {
 
         try {
             //Keeps waiting for messages
-            while ((message = reader.readLine()) != null) {
+            while (true) {
+                message = reader.readLine();
+                System.out.println("Message readen inside client " + message);
                 getMessage(message);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
+                System.out.println("Socket closed");
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();

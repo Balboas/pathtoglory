@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 public class Main extends Application {
 
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -23,7 +23,7 @@ public class Main extends Application {
 
         // Load the login screen§
         navigation.loadScreen(LoginController.getNAME());
-        executorService.submit(new Client(navigation.getController(LoginController.getNAME())));
+
         primaryStage.show();
     }
 
