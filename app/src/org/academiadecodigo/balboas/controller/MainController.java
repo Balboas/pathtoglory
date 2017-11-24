@@ -63,6 +63,7 @@ public class MainController implements Controller{
     void onFightButton(ActionEvent event){
 
         String message = MessageProtocol.encode(MessageProtocol.FIGHT, "get", clientName);
+        System.out.println(clientName);
         client.sendMessage(message);
 
     }

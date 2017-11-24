@@ -14,7 +14,6 @@ public class Fighter1 implements Fighter {
     FightController controller;
     Client client;
 
-
     @Override
     public void moveLeft(ImageView player1, ImageView player2, String clientName) {
 
@@ -44,6 +43,7 @@ public class Fighter1 implements Fighter {
 
     @Override
     public void attack(ImageView player1, ImageView player2, String text, String clientName) {
+        System.out.println("Client name " + clientName);
 
         player1.setImage(new Image("/punching1.png"));
         if (player1.getX() >= (player2.getX() - player1.getFitWidth())) {

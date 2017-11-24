@@ -55,7 +55,7 @@ public class FightController implements Controller {
     @FXML
     void moveLeft(ActionEvent event) {
 
-       fighter.moveLeft(player1, player2, clientName);
+        fighter.moveLeft(player1, player2, clientName);
     }
 
     @FXML
@@ -64,12 +64,12 @@ public class FightController implements Controller {
         fighter.moveRight(player1, player2, clientName);
     }
 
-    public void setHealth(String health){
+    public void setHealth(String health) {
 
         healthLabel.setText(health);
     }
 
-    public String getClientName(){
+    public String getClientName() {
         return clientName;
     }
 
@@ -77,7 +77,7 @@ public class FightController implements Controller {
         return fighter;
     }
 
-    public void setStrength(String strength){
+    public void setStrength(String strength) {
         strengthLabel.setText(strength);
     }
 
@@ -95,7 +95,7 @@ public class FightController implements Controller {
 
     public void setFighter(Fighter fighter) {
         System.out.println(fighter.getClass().getSimpleName());
-        if (fighter.getClass().getSimpleName().equals("Fighter1")){
+        if (fighter.getClass().getSimpleName().equals("Fighter1")) {
             playerNumber = 1;
         } else {
             playerNumber = 2;
@@ -103,11 +103,14 @@ public class FightController implements Controller {
         this.fighter = fighter;
     }
 
-    public void setOpponentPlayerPosition(String x){
-        if (playerNumber == 1){
-            player2.setX(Double.parseDouble(x));
-            return;
+    public void setOpponentPlayerPosition(String playerName, String position) {
+
+        if (!playerName.equals(clientName)) {
+            if (playerNumber == 1) {
+                player2.setX(Double.parseDouble(position));
+            } else {
+                player1.setX(Double.parseDouble(position));
+            }
         }
-        player1.setX(Double.parseDouble(x));
     }
 }

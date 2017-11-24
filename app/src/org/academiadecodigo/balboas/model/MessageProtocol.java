@@ -38,6 +38,7 @@ public enum MessageProtocol {
         }
 
         switch (protocol) {
+
             case LOGIN:
                 if (splittedMessage[1].equals("done")) {
                     System.out.println("Entering login");
@@ -64,18 +65,22 @@ public enum MessageProtocol {
                 }
                 break;
             case FIGHT:
+                System.out.println(message);
                 if (splittedMessage[1].equals("done")) {
                     MainController controller = (MainController) Navigation.getInstance().getController(MainController.getName());
                     Platform.runLater(() -> {
                         Navigation.getInstance().loadScreen(FightController.getName());
                         FightController fightController = (FightController) Navigation.getInstance().getController(FightController.getName());
+
                         fightController.setClient(controller.getClient());
                         fightController.setClientName(splittedMessage[2]);
                         fightController.setHealth(splittedMessage[3]);
                         fightController.setStrength(splittedMessage[4]);
                         fightController.setClient(controller.getClient());
+
                         System.out.println("should be here");
                         System.out.println("trying to set client to " + controller.getClient());
+
                         if (splittedMessage[5].equals("1")) {
                             System.out.println("setting client");
                             fightController.setFighter(new Fighter1());
@@ -92,17 +97,21 @@ public enum MessageProtocol {
             case ATTACK:
                 FightController controller =
                 (FightController) Navigation.getInstance().getController(FightController.getName());
-                if (!splittedMessage[2].equals(controller.getClientName())) {
+                
+                if (!splittedMessage[1].equals(controller.getClientName())) {
                     controller.setHealth(splittedMessage[2]);
                 }
+
                 break;
+
             case MOVE:
                 System.out.println("Move message: " + message);
                 FightController fightController =
                         (FightController) Navigation.getInstance().getController(FightController.getName());
 
-                fightController.setOpponentPlayerPosition(splittedMessage[2]);
+                fightController.setOpponentPlayerPosition(splittedMessage[1], splittedMessage[2]);
         }
+
         return null;
     }
 
